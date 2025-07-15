@@ -1,0 +1,47 @@
+﻿@model PaymentViewModel
+
+<div class="modal fade" id="editOrderPaymentMod">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Order Payment</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editOrderPaymentForm">
+                <input type="hidden" id="PaymentId" name="PaymentId" value="@Model.PaymentId" />
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-4 form-floating mb-2">
+                            <input id="PayerName" value="@Model.PayerName" type="text" name="PayerName" class="form-control" placeholder="Payer name" />
+                            <label class="form-label">Payer Name</label>
+                        </div>
+                        <div class="col-md-4 form-floating mb-2">
+                            <input type="number" value="@Model.Amount.ToString("F2")" name="Amount" class="form-control" id="Amount" placeholder="Amount" />
+                            <label class="form-label">Amount</label>
+                        </div>
+                        <div class="col-md-4 form-floating mb-2">
+                            <select class="form-select" asp-for="@Model.PayTo" name="PayTo" id="PayTo" placeholder="Paid To">
+                                <option value=""></option>
+                                @foreach (var user in Model.carmenStitchAndPressUsers)
+                                {
+                                    <option value="@user.Email">@user.FirstName</option>
+                                }
+                            </select>
+                            <label class="form-label" for="PayTo">Paid To</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger  bg-gradient text-white" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-circle"></i> Cancel
+                    </button>
+                    <button class="btn btn-success bg-gradient text-white" id="editOrderPaymentSubmitBtn">
+                        <i class="bi bi-check-circle"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

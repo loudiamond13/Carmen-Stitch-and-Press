@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="container-lg  pt-5">
+    <div class="card shadow rounded border-0">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-light py-2">Orders</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-2">
+            <div class="d-flex flex-row pb-4">
+                
+                    <div class=" me-auto">
+                        <select class="form-select " aria-label="" id="orderFilter">
+                            <option value="true" selected>Open</option>
+                            <option value="false">Close</option>
+                            <option value="">All</option>
+                        </select>
+                    </div>
+              
+                <div class=" ">
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Create" class="btn btn-primary bg-gradient ">
+                        <i class="bi bi-plus-circle text-nowrap"></i>  Create New Order
+                    </a>
+                </div>
+            </div>
+
+            <div class="">
+                <table id="orderTbl" class="table table-bordered table-striped table-responsive hover">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap">Order Name</th>
+                            <th class="text-center text-nowrap">Paid Amount</th>
+                            <th class="text-center ">Balance</th>
+                            <th>Total Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script src="~/js/Views/Areas/Admin/Order/Index.js"></script>
+}

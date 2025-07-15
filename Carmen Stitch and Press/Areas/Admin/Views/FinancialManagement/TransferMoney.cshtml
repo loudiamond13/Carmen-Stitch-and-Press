@@ -1,0 +1,52 @@
+﻿
+<div class="modal fade" id="transferMoneyMod">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Transfer Money</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="transferMoneyForm">
+                @* <input type="hidden" id="OrderId" name="OrderId" value="@Model.OrderId" /> *@
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-4 form-floating mb-2">
+                            <select class="form-select" name="TransferFrom" id="TransferFrom">
+                                <option value=""></option>
+                                @foreach (var user in ViewBag.UsersFrom)
+                                {
+                                    <option value="@user.Email">@user.FirstName</option>
+                                }
+                            </select>
+                            <label for="TransferFrom">Transfer From</label>
+                        </div>
+                        <div class="col-md-4 form-floating mb-2">
+                            <input id="TransferAmount" type="number" name="TransferAmount" class="form-control" placeholder="Amount" />
+                            <label class="form-label">Amount</label>
+                        </div>
+                        <div class="col-md-4 form-floating mb-2">
+                            <select class="form-select" name="TransferTo" id="TransferTo">
+                                <option value=""></option>
+                                @foreach (var user in ViewBag.UsersTo)
+                                {
+                                    <option value="@user.Email">@user.FirstName</option>
+                                }
+                            </select>
+                            <label for="TransferTo">Transfer To</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger bg-gradient text-white" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-circle"></i> Cancel
+                    </button>
+                    <button class="btn btn-success bg-gradient text-white" id="transferMoneyBtn">
+                        <i class="bi bi-check-circle"></i> Transfer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

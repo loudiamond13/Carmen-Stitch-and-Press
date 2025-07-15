@@ -1,0 +1,113 @@
+﻿
+
+@{
+    ViewData["Title"] = "Create Order";
+}
+@model OrderViewModel
+
+@{
+    var payToOptions = "";
+    foreach (var user in ViewBag.AdminUsers)
+    {
+        payToOptions += $"<option value='{user.Email}'>{user.FirstName}</option>";
+    }
+}
+
+<div class="container  pt-4">
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient m-lg-0 py-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="py-2 text-light">Create Order</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row pt-4">
+                <div class="col-md-12">
+                    <form id="createOrderForm" class="row">
+                       @*  <hr /> *@
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="form-floating mb-3 col-md-6">
+                            <input asp-for="@Model.OrderName" class="form-control" autocomplete="orderName" aria-required="true" placeholder="Order Name" />
+                            <label asp-for="@Model.OrderName" class="form-label">Order Name</label>
+                   
+                        </div>
+                        <div class="form-floating mb-3 col-md-6">
+                            <input asp-for="@Model.Note" class="form-control" autocomplete="note" aria-required="true" placeholder="Note" />
+                            <label asp-for="@Model.Note" class="form-label">Description/Note</label>
+                        </div>
+                        <div id="itemsContainer" class="border-label-box p-2">
+                            <div class="border-label-text">Item(s)</div>
+                            <div class="item-row">
+                                <div class="row pt-md-2 g-1 ">
+                                    <!-- Description -->
+                                    <div class="col-6 form-floating">
+                                        <input type="text" name="Items[0].Description" id="description-0" class="form-control" placeholder="Item Description" />
+                                        <label for="description-0">Item Description</label>
+                                    </div>
+
+                                    <!-- Price -->
+                                    <div class="col-2 form-floating">
+                                        <input type="number" name="Items[0].Price" id="price-0" class="form-control" placeholder="Price" />
+                                        <label for="price-0">Price</label>
+                                    </div>
+
+                                    <!-- Quantity -->
+                                    <div class="col-2 form-floating">
+                                        <input type="number" name="Items[0].Quantity" id="quantity-0" class="form-control" placeholder="Qty" />
+                                        <label for="quantity-0">Qty</label>
+                                    </div>
+
+                                    <!-- Remove Button -->
+                                    <div class="col-2 text-nowrap d-flex justify-content-center align-items-center">
+                                        <button type="button" class="btn text-white btn-danger  remove-btn">
+                                            <i class="bi bi-trash"></i>
+                                            <span class="d-none d-md-inline">Remove</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row p-0 m-0">
+                            <button type="button" id="addItemBtn" class="btn btn-secondary text-nowrap  my-1"><i class="bi bi-bookmark-plus"></i> Add Item</button>
+                        </div>
+                        <div class="row paymentRowContainer p-0 m-0">
+                            <button type="button" id="addPaymenBtn" class="btn btn-secondary text-nowrap  my-1"><i class="bi bi-database-add"></i> Add Payment</button>
+                            <div class=" paymentRow p-0 m-0"></div>
+                            
+                        </div>
+                        <div class="row discountRowContainer p-0 m-0">
+                            <button type="button" id="addDiscountBtn" class="btn btn-secondary text-nowrap  my-1"><i class="bi bi-tags"></i> Add Discount</button>
+                            <div class="col-12 discountRow p-0 m-0"></div>
+                            
+                        </div>
+                        <div class="row text-end m-0 p-0">
+                            <div class="col-12 ">
+                                <a id="cancelCreateOrder" asp-area="Admin" asp-controller="Order" asp-action="Index" class="text-white btn text-nowrap bg-gradient text-light  btn-danger">
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </a>
+                                <button id="submitOrder" class=" btn text-nowrap  btn-primary text-white bg-gradient">
+                                    <i class="bi bi-check2-circle"></i> Create
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+     <script>
+
+         const payToSelectOptions = `@Html.Raw(payToOptions)`;
+     </script>
+    <script src="~/js/Views/Areas/Admin/Order/Create.js"></script>
+}

@@ -1,0 +1,38 @@
+﻿
+
+
+@import "../lib/bootstrap/dist/scss/_functions.scss";
+@import "../lib/Toastr/Toastr.css";
+
+
+
+$white: #ffffff;
+
+$theme-colors: (
+    "light": #fde5d2,
+    "dark": #010000, 
+    "primary": #572e2b, 
+    "secondary": #ad4a26,
+    "info": #4c68f3,
+    "success": #539412,
+    "warning": #feba4f, 
+    "danger": #e90962, 
+    "secondary2":#b86142
+    );
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    //PT Sans
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+
+/*@import"../css/site.css";*/
+@import"../lib/bootstrap/dist/scss/bootstrap.scss";

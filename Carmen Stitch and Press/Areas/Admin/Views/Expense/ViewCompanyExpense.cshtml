@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Company Expenses";
+}
+
+<div class="container-lg pt-4">
+    <div class="card shadow border-0 my-4">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-light py-2">Company's Expenses</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body px-2 py-2">
+            <div class=" d-flex mb-4 ">
+                <div class="me-auto">
+                    
+                        <a asp-area="Admin" asp-controller="Expense" asp-action="Index" class="btn bg-gradient btn-primary">
+                            <i class="bi bi-skip-backward"></i> Back
+                        </a>
+                   
+                </div>
+                <div class="">
+                    <button id="" class="btn text-center addCompanyExpense bg-gradient text-nowrap btn-primary">
+                        <i class="bi bi-database-add"></i>
+                        <span class=""> Add Company's Expense</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="">
+                <table id="companyExpensesTbl" class="table table-bordered table-striped hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="text-center text-nowrap">Spend Date</th>
+                            <th class="text-nowrap">Description</th>
+                            <th class="text-center text-nowrap">Amount</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Total:</th>
+                            <th></th> <!-- Total will be placed here -->
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="addCompanyExpenseModal"></div>
+
+@section Scripts{
+    <script src="~/js/Views/Areas/Admin/Expense/ViewCompanyExpenses.js" ></script>
+    <script src="~/js/Views/Areas/Admin/Expense/AddCompanyExpense.js "></script>
+}

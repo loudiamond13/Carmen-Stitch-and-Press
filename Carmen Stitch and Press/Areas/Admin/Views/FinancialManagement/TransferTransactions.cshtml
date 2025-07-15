@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Transfer Transactions";
+}
+
+
+<div class="container-lg pt-4">
+    <div class="card shadow border-0 my-4">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-light py-2">Transfer Transactions</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row pb-3">
+                <div class="col-6 text-start">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <a asp-area="Admin" asp-controller="FinancialManagement" asp-action="Index" class="btn btn-primary">
+                            <i class="bi bi-skip-backward"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="">
+                <table id="transferTransacionsTbl" class="table table-hover table-bordered table-striped table-responsive hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center text-nowrap">Transfer Date</th>
+                            <th class="text-nowrap">From</th>
+                            <th class="text-center text-nowrap">To</th>
+                            <th class="text-center text-nowrap">Amount</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/Views/Areas/Admin/FinancialManagement/TransferTransactions.js"> </script>
+}

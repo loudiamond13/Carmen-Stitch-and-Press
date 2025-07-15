@@ -1,0 +1,45 @@
+﻿@model int
+
+<div class="modal fade" id="addOrderItemMod">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Order Item</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addItemForm">
+                <input type="hidden" id="OrderId" name="OrderId" value="@Model" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4 mb-2 form-floating">
+                            <input name="Description" type="text" class="form-control" placeholder="Item Description" />
+                            <label class="form-label">Item Description</label>
+                        </div>
+                        <div class="col-sm-12 col-md-4 mb-2 form-floating">
+                            <input name="Price" type="number" class="form-control" placeholder="Price" />
+                            <label class="form-label">Price</label>
+                        </div>
+                        <div class="col-sm-12 col-md-4 mb-2 form-floating">
+                            <input name="Quantity" type="number" class="form-control" placeholder="Quantity" />
+                            <label class="form-label">Quantity</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger text-white bg-gradient" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-circle"></i> Cancel
+                    </button>
+                    <button class="btn btn-success bg-gradient text-white" id="addOrderItemBtn">
+                        <i class="bi bi-check-circle"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+ 
+}

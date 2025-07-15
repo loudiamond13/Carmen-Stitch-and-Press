@@ -1,0 +1,41 @@
+﻿
+
+<div class="modal fade" id="addOrderDiscountMod">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Order Discount</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addDiscountForm">
+                <input type="hidden" id="OrderId" name="OrderId" value="@Model" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-2 form-floating">
+                            <input type="text" name="Description" class="form-control" placeholder="Description"  />
+                            <label class="form-label">Description</label>
+                        </div>
+                        <div class="col-md-3 mb-2 form-floating">
+                            <input type="number" name="Amount" class="form-control" placeholder="Amount"  />
+                            <label class="form-label">Amount</label>
+
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-2">
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger bg-gradient text-white" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-circle"></i> Cancel
+                    </button>
+                    <button class="btn btn-success bg-gradient text-white" id="addOrderDiscountSubmitBtn">
+                        <i class="bi bi-check-circle"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

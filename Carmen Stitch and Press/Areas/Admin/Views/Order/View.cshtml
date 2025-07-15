@@ -1,0 +1,227 @@
+﻿@using System.Globalization
+@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+    var payToOptions = "";
+    foreach (var user in ViewBag.AdminUsers)
+    {
+        payToOptions += $"<option value='{user.Email}'>{user.FullName}</option>";
+    }
+}
+
+<div class="container ">
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient m-lg-0 ">
+            <div class="row">
+                <div class="col-4  text-start ">
+                    <div class="row">
+                        <span class=" text-nowrap text-light">Balance: @Model.TotalBalance.ToString("C2", CultureInfo.GetCultureInfo("en-PH"))</span>
+                        <span class=" text-nowrap text-light">Paid: @Model.PaidAmount.ToString("C2", CultureInfo.GetCultureInfo("en-PH"))</span>
+                        <span class=" text-nowrap text-light">Discount: @Model.TotalDiscount.ToString("C2", CultureInfo.GetCultureInfo("en-PH"))</span>
+                        <span class=" text-nowrap text-light">Total: @Model.TotalAmount.ToString("C2", CultureInfo.GetCultureInfo("en-PH"))</span>
+                    </div>
+                </div>
+                <div class="col-8 text-center">
+                    <h3 class=" mt-2 text-light">@Model.OrderName</h3>
+                </div>
+            </div>
+        </div>
+        <div class="card-body px-4">
+            <div class="row pt-1">
+                <div class="col-md-12">
+                    <form id="createOrderForm" class="row">
+                        @*  <hr /> *@
+                  
+                        <div class="form-floating  mb-3 col-md-6 d-none">
+                            <input  asp-for="@Model.OrderName" class="form-control" autocomplete="orderName" aria-required="true" placeholder="Order Name" />
+                            <label  asp-for="@Model.OrderName" class="form-label">Order Name</label>
+
+                        </div>
+                        <div class="form-floating mb-3 col-md-6 d-none">
+                            <input  asp-for="@Model.Note" class="form-control" autocomplete="note" aria-required="true" placeholder="Note" />
+                            <label  asp-for="@Model.Note" class="form-label">Description/Note</label>
+                        </div>
+                        @* items *@
+                        <div id="itemsContainer" class="border-label-box p-2">
+                            <div class="border-label-text">Item(s)</div>
+                            <div class="item-row  ">
+                                @for ( var i = 0; i < Model.Items.Count; i++)
+                                {
+                                    var isDoneClass = Model.Items[i].IsDone == true ? "bg-success bg-opacity-25" : "";
+                                    <div class="row g-1 pt-1">
+                                        <input asp-for="Items[i].OrderItemId" type="hidden" />
+                                        @* description *@
+                                        <div class="col-5 form-floating">
+                                            <input readonly value="@Model.Items[i].Description" type="text" name="Items[@i].Description" class="form-control rounded @isDoneClass" autocomplete="description" aria-required="true" placeholder="Item Description" />
+                                            <label class="form-label text-nowrap">Item Description</label>
+                                        </div>
+                                        @* price *@
+                                        <div class="col-3  form-floating">
+                                            <input readonly type="number" value="@Model.Items[i].Price.ToString("F2")" name="Items[@i].Price" class="form-control rounded @isDoneClass" placeholder="Price" />
+                                            <label class="form-label">Price</label>
+                                        </div>
+                                        @* quantity *@
+                                        <div class="col-2 col-md-1  form-floating">
+                                            <input readonly type="number" value="@Model.Items[i].Quantity" name="Items[@i].Quantity" class="form-control rounded @isDoneClass" placeholder="Quantity" />
+                                            <label class="form-label">Qty</label>
+                                        </div>
+                                        @* buttons *@
+                                        <div class="col-2 col-md-3 vstack gap-1">
+                                            <button type="button" name="@Model.Items[i].Description" id="@Model.Items[i].OrderItemId" class="text-nowrap btn btn-secondary btn-sm editItemBtn d-none">
+                                                <i class="bi bi-pencil"></i>
+                                                <span class="d-none d-md-inline"> Edit</span>
+                                            </button>
+                                            <button type="button" name="@Model.Items[i].Description" id="@Model.Items[i].OrderItemId" class="text-white text-nowrap btn btn-danger btn-sm removeItemBtn d-none">
+                                                <i class="bi bi-trash"></i>
+                                                <span class="d-none d-md-inline text-white"> Remove</span>
+                                            </button>
+                             
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class=" p-0 m-0">
+                            <button type="button" id="addItemBtn" data-index="@Model.OrderId" class="btn btn-secondary text-nowrap my-2 d-none"><i class="bi bi-bookmark-plus"></i> Add Item</button>
+                        </div>
+                        @* payments *@
+                        @if (Model.Payments.Count > 0)
+                        {
+                            <div id="paymentContainer" class="border-label-box p-2">
+                                <div class="border-label-text">Payment(s)</div>
+                                <div class="item-row mb-2">
+                                    @for (var i = 0; i < Model.Payments.Count; i++)
+                                    {
+                                        <div class="row g-1 pt-1 align-items-start">
+                                            <!-- Paid By -->
+                                            <div class="col-4 form-floating">
+                                                <input readonly type="text" value="@Model.Payments[i].PayerName" name="PayerName" class="form-control" placeholder="Payer Name" required />
+                                                <label class="form-label">Paid By</label>
+                                            </div>
+
+                                            <!-- Amount -->
+                                            <div class="col-3 col-md-2 form-floating">
+                                                <input readonly type="number" value="@Model.Payments[i].Amount.ToString("F2")" name="PaymentAmount" class="form-control" placeholder="Amount" required />
+                                                <label class="form-label">Amount</label>
+                                            </div>
+
+                                            <!-- Paid To Select -->
+                                            <div class="col-3 form-floating">
+                                                <select disabled class="form-select" asp-for="@Model.Payments[i].PayTo" name="PayTo" aria-label="Default select example">
+                                                    <option></option>
+                                                    @foreach (var user in ViewBag.AdminUsers)
+                                                    {
+                                                        <option value="@user.Email">@user.FirstName</option>
+                                                    }
+                                                </select>
+                                                <label class="form-label">Paid To</label>
+                                            </div>
+                                            <div class="col-2 col-md-3 vstack gap-1">
+                                                <button type="button" data-name="@Model.Payments[i].PayerName" id="@Model.Payments[i].PaymentId" class="btn d-none btn-sm editPayment btn-secondary">
+                                                    <i class="bi bi-pencil"></i>
+                                                    <span class="d-none d-md-inline"> Edit</span>
+                                                </button>
+                                                <button type="button" data-name="@Model.Payments[i].PayerName" id="@Model.Payments[i].PaymentId" class="text-white btn d-none btn-sm btn-danger removePaymentBtn">
+                                                    <i class="bi bi-trash"></i>
+                                                    <span class="d-none d-md-inline"> Remove</span>
+                                                </button>
+                                  
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <div class="  p-0 m-0">
+                            <div class="col-12 paymentRow p-0 m-0"></div>
+                            <button type="button" data-index="@Model.OrderId" id="addPaymenBtn" class="btn btn-secondary text-nowrap my-1 d-none"><i class="bi bi-database-add"></i> Add Payment</button>
+                        </div>
+                        @* Discount *@
+                        @if (Model.Discounts.Count > 0) 
+                        {
+                            <div id="paymentContainer" class="border-label-box p-2">
+                                <div class="border-label-text">Discount(s)</div>
+                                <div class="item-row mb-2">
+                                    @for (var i = 0; i < Model.Discounts.Count; i++)
+                                    {
+                                        <div class="row pt-md-2  g-1">
+                                            @* description *@
+                                            <div class="col-6 form-floating">
+                                                <input readonly type="text" value="@Model.Discounts[i].Description" name="Description" class="form-control" placeholder="Payer Name" required />
+                                                <label class="form-label">Description</label>
+                                            </div>
+                                            @* discount amount  *@
+                                            <div class="col-3 form-floating">
+                                                <input readonly type="number" value="@Model.Discounts[i].Amount.ToString("F2")" name="PaymentAmount" class="form-control" placeholder="Amount" required />
+                                                <label class="form-label">Amount</label>
+                                            </div>
+                                            @* buttons *@
+                                            <div class="col-2 vstack gap-1">
+@*                                                 <button type="button" data-desc="@Model.Discounts[i].Description" id="@Model.Discounts[i].OrderDiscountId" class="btn btn-secondary btn-sm editDiscBtn d-none">
+                                                    <i class="bi bi-pencil"></i>
+                                                    <span class="d-none d-md-inline"> Edit</span>
+                                                </button> *@
+                                                <button type="button" data-desc="@Model.Discounts[i].Description" id="@Model.Discounts[i].OrderDiscountId" class="text-light btn btn-danger  btn-sm removeDiscBtn d-none">
+                                                    <i class="bi bi-trash"></i>
+                                                    <span class="d-none d-md-inline"> Remove</span>
+                                                </button>
+                                  
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <div class=" p-0 m-0">
+                            <button type="button" data-index="@Model.OrderId" id="addDiscountBtn" class="btn btn-secondary text-nowrap d-none  my-1"><i class="bi bi-tags"></i> Add Discount</button>
+                            <div class="col-12 discountRow p-0 m-0"></div>
+
+                        </div>
+                        <div class="row text-end m-0 p-0">
+                            <div class="col-12 ">
+
+                      
+                                
+                            </div>
+                        </div>
+                        <div class="row text-end m-0 pt-3 px-0">
+                            <div class="col-12 ">
+
+                                <a id="backEditBtn" class="text-white mx-2 btn text-nowrap bg-gradient  btn-danger" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                    <i class="bi bi-skip-backward"></i> Back
+                                </a>
+                                <button id="editOrderBtn" class=" btn text-nowrap text-white bg-gradient  btn-primary"><i class="bi bi-pencil-square"></i> Edit</button>
+
+                               <button data-id="@Model.OrderId" data-isopen="@Model.IsOpen" type="button" class="closeOrderBtn text-white btn text-nowrap  d-none @(Model.IsOpen == true ? "btn-success" : "btn-secondary")">
+                                    <i class="bi @(Model.IsOpen == true ? "bi-check2-all" : "bi-arrow-bar-up")"></i>
+                                    @(Model.IsOpen == true ? "Close Order" : "Open Order")
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="addOrderItemModal"></div>
+<div id="addOrderPaymentModal"></div>
+<div id="addOrderDiscountModal"></div>
+<div id="addOrderExpenseModal"></div>
+<div id="editOrderItemModal"></div>
+<div id="editOrderPaymenModal"></div>
+
+@section Scripts {
+    <script>
+
+        const payToSelectOptions = `@Html.Raw(payToOptions)`;
+    </script>
+    <script src="~/js/Views/Areas/Admin/Order/View.js"></script>
+    <script src="~/js/Views/Areas/Admin/Order/AddOrderPayment.js"></script>
+    <script src="~/js/Views/Areas/Admin/Order/AddOrderItem.js"></script>
+    <script src="~/js/Views/Areas/Admin/Order/AddOrderDiscount.js"></script>
+    <script src="~/js/Views/Areas/Admin/Order/EditOrderItem.js"></script>
+    <script src="~/js/Views/Areas/Admin/Order/EditOrderPayment.js"></script>
+}

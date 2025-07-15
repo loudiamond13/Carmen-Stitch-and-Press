@@ -1,0 +1,51 @@
+﻿@using System.Globalization
+@model OrderItem
+
+<div class="modal fade" id="editOrderItemMod">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Order Item</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editOrderItemForm">
+                <input type="hidden" id="OrderItemId" name="OrderItemId" value="@Model.OrderItemId" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4 mb-2 form-floating">
+                            <input value="@Model.Description" name="Description" type="text" class="form-control" placeholder="Item Description" />
+                            <label class="form-label">Item Description</label>
+                        </div>
+                        <div class="col-sm-12 col-md-4 mb-2 form-floating">
+                            <input value="@Model.Price.ToString("F")" name="Price" type="number" class="form-control" placeholder="Price" />
+                            <label class="form-label">Price</label>
+                        </div>
+                        <div class="col-sm-12 col-md-4 mb-2 form-floating">
+                            <input value="@Model.Quantity" name="Quantity" type="number" class="form-control" placeholder="Quantity" />
+                            <label class="form-label">Quantity</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex">
+
+                    <button data-id="@Model.OrderItemId" data-done="@Model.IsDone" type="button" class="btn bg-gradient itemIsDoneBtn text-white  me-auto @(Model.IsDone == true ? "btn-secondary" : "btn-success")">
+                        <i class="bi @(Model.IsDone == true ? "bi-arrow-bar-up" : "bi-check2-all")"></i>
+                        @(Model.IsDone == true ? "Open" : "Finish")
+                    </button>
+                    <button type="button" class="btn text-white btn-danger bg-gradient" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-circle"></i> Cancel
+                    </button>
+                    <button class="btn btn-primary bg-gradient text-white" id="editOrderItemBtn">
+                        <i class="bi bi-check-circle"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+}

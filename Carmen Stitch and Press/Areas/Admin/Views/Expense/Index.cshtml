@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Expenses";
+}
+
+<div class="container-lg pt-5">
+    <div class="card shadow border-0">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-light py-2">Expenses</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body px-2 pt-2">
+            <div class="d-flex flex-column align-items-end gap-2 pb-3">
+                <div class=" text-nowrap">
+                        <button id="addCompanyExpensesBtn" class="btn bg-gradient text-white  btn-primary">
+                            <i class="bi bi-plus-circle"></i>  Add Company's Expense
+                        </button>
+                </div>
+                <div class=" text-nowrap">
+                    <button id="viewCompanyExpensesBtn" class="btn bg-gradient text-white  btn-secondary">
+                        <i class="bi bi-eye"></i>  View Company's Expenses
+                    </button>
+                </div>
+            </div>
+
+            <div class="">
+                <table id="expenseTbl" class="table table-bordered table-striped hover">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap">Order Name</th>
+                            <th class="text-center text-nowrap">Total Expenses</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="addOrderExpenseModal"></div>
+<div id="addCompanyExpenseModal"></div>
+
+
+@section Scripts {
+    <script src="~/js/Views/Areas/Admin/Expense/Index.js"></script>
+    <script src="~/js/Views/Areas/Admin/Expense/AddOrderExpense.js"></script>
+    <script src="~/js/Views/Areas/Admin/Expense/AddCompanyExpense.js"></script>
+    <script src="~/js/Views/Areas/Admin/Expense/ViewOrderExpenses.js"></script>
+    <script src="~/js/Views/Areas/Admin/Expense/ViewCompanyExpenses.js"></script>
+}

@@ -1,0 +1,56 @@
+﻿@using System.Globalization
+@{
+    ViewData["Title"] = "Financial Management"; 
+}
+@model FinancialManagementViewModel
+
+<div class="container-lg  px-4 pt-3">
+   <div class="pt-5 row">
+       <div class="col-12">
+            <div class="card shadow border-0  ">
+               <div class="card-header py-3 bg-secondary bg-gradient">
+                   <h3 class="text-center text-light">Financial Management/Record</h3>
+               </div>
+               <div class="pt-2 card-body  bg-body-secondary">
+
+                    <div class="d-flex flex-column  gap-2 align-items-end">
+                        <button id="transferMoneyBtn" class="btn btn-success float-end bg-gradient text-white"><i class="bi bi-send-check"></i> Transfer Money</button>
+                        <a asp-area="Admin" asp-controller="FinancialManagement" asp-action="TransferTransactions" id="viewTransactionsBtn" class="btn btn-info float-end bg-gradient">
+                            <i class="bi bi-eye"></i> View Transactions
+                        </a>
+                   </div>
+                    <hr />
+                 <div class="pt-3">
+                        <p class="fs-5">All order totals:  @Model.AllOrdersTotal.ToString("C2", CultureInfo.GetCultureInfo("fil-PH"))</p>
+                        <p class="fs-5">Collected total:  @Model.TotalReceivedMoney.ToString("C2", CultureInfo.GetCultureInfo("fil-PH"))</p>
+                        <p class="fs-5">Overall Expenses:  @Model.TotalExpenses.ToString("C2", CultureInfo.GetCultureInfo("fil-PH"))</p>
+                        <p class="fs-5">Total Uncollected:  @Model.Collectible.ToString("C2", CultureInfo.GetCultureInfo("fil-PH"))</p>
+                        <p class="fs-5">Total Profit:  @Model.TotalProfit.ToString("C2", CultureInfo.GetCultureInfo("fil-PH"))</p>
+                       
+                 </div>
+                    <hr />
+                    <div class="text-center text-secondary">
+                        <span class=" h4">Money On Hand</span>
+                   </div>
+                   <div class="text-center">
+                        @foreach (var user in Model.carmenStitchAndPressUserModels)
+                        {
+                            <p class="fs-5">@user.FirstName:  @user.MoneyOnHand.ToString("C2", CultureInfo.GetCultureInfo("fil-PH"))</p>
+                        }
+                   </div>
+                    <hr />
+                   <div>
+                        <p class="fs-5">Overall Accepted Order Quantity:  @Model.AcceptedOrderQtyTotal</p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div id="transferMoneyModal"></div>
+
+@section Scripts{
+    <script src="~/js/Views/Areas/Admin/FinancialManagement/Index.js"></script>
+    <script src="~/js/Views/Areas/Admin/FinancialManagement/TransferMoney.js"></script>
+}
