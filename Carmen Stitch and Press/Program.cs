@@ -57,7 +57,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-    options.Cookie.SameSite = SameSiteMode.Lax;
+    options.Cookie.SameSite = SameSiteMode.Strict;
  //   options.ExpireTimeSpan = TimeSpan.FromDays(365);
     options.SlidingExpiration = false;
 
