@@ -22,8 +22,10 @@ namespace Carmen_Stitch_and_Press.Areas.Admin.ViewModels
 
         public string SpendDateString { get; set; } = "";
 
-        public List<CarmenStitchAndPressUserModel> carmenStitchAndPressUsers = new();
+        public List<CarmenStitchAndPressUserModel> carmenStitchAndPressUsers { get; set; } = new();
 
         public string OrderTotalQty { get; set; } = "";
+
+        public List<string> DistinctYears { get; set; } = new(); 
     }
 }

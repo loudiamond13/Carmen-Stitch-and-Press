@@ -14,10 +14,12 @@ namespace Carmen_Stitch_and_Press.Areas.Admin.Controllers
     {
         private readonly IIdentityUserServices _identityUserServices;
         private readonly IOrderItemLogic _orderItemLogic;
-        public ExpenseController(IIdentityUserServices identityUserServices, IOrderItemLogic orderItemLogic)
+        private readonly IExpenseLogic _expenseLogic;
+        public ExpenseController(IIdentityUserServices identityUserServices, IOrderItemLogic orderItemLogic, IExpenseLogic expenseLogic)
         {
             _identityUserServices = identityUserServices;
             _orderItemLogic = orderItemLogic;
+            _expenseLogic = expenseLogic;
         }
         public IActionResult Index()
         {
@@ -82,9 +84,15 @@ namespace Carmen_Stitch_and_Press.Areas.Admin.Controllers
         #region view company expenses
         [Route("ViewCompanyExpense")]
         [HttpGet]
-        public IActionResult ViewCompanyExpense() 
+        public async Task<IActionResult> ViewCompanyExpense() 
         {
-            return View("ViewCompanyExpense");
+            var distinctYears = await _expenseLogic.GetAllDistinctYearsCompExpenses();
+            ExpenseViewModel expenseViewModel = new ExpenseViewModel();
+
+ 
+            expenseViewModel.DistinctYears = distinctYears;
+
+            return View("ViewCompanyExpense", expenseViewModel);
         }
         #endregion
         #region

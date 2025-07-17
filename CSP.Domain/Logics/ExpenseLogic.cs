@@ -71,5 +71,16 @@ namespace CSP.Domain.Logics
             return await _expensesRepository.FindByAsync(x=>x.IsCompanyExpenses);
         }
         #endregion
+        #region get all distinct years of expenses dates
+        public async Task<List<string>> GetAllDistinctYearsCompExpenses() 
+        {
+            var expenses = await _expensesRepository.GetAllAsync();
+            if (expenses != null)
+            {
+                return expenses.Where(x=>x.IsCompanyExpenses).Select(x => x.SpendDate.Year.ToString()).Distinct().OrderByDescending(x => x).ToList();
+            }
+            return null;
+        }
+        #endregion
     }
 }

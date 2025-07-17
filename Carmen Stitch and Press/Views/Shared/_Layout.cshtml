@@ -132,9 +132,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 
-    <script src="~/js/Views/AppModule.js"></script>
-    <script src="~/lib/SweetAlert/SweetAlert.min.js"></script>
-    <script src="~/lib/Toastr/Toastr.js"></script>
+    <script src="~/js/Views/AppModule.js" asp-append-version="true"></script>
+    <script src="~/lib/SweetAlert/SweetAlert.min.js" asp-append-version="true"></script>
+    <script src="~/lib/Toastr/Toastr.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -16,5 +16,6 @@ namespace CSP.Domain.Logics.Interfaces
 
         Task<List<Expense>> GetAllCompanyExpenses();
 
+        Task<List<string>> GetAllDistinctYearsCompExpenses();
     }
 }

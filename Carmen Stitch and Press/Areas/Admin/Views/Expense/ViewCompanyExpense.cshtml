@@ -1,6 +1,10 @@
-﻿@{
+﻿@model ExpenseViewModel
+
+@{
     ViewData["Title"] = "Company Expenses";
 }
+
+
 
 <div class="container-lg pt-4">
     <div class="card shadow border-0 my-4">
@@ -27,7 +31,15 @@
                     </button>
                 </div>
             </div>
-
+            <div class="d-flex justify-content-start pb-3">
+                <div class="d-flex align-items-center gap-1">
+                    <label for="viewCompanyYearSelect" class="mb-0">Year</label>
+                    <select id="viewCompanyYearSelect" class="form-select" 
+                            asp-items="@(new SelectList(Model.DistinctYears, DateTime.Now.Year.ToString()))">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
+            </div>
             <div class="">
                 <table id="companyExpensesTbl" class="table table-bordered table-striped hover table-responsive">
                     <thead>
@@ -54,6 +66,6 @@
 <div id="addCompanyExpenseModal"></div>
 
 @section Scripts{
-    <script src="~/js/Views/Areas/Admin/Expense/ViewCompanyExpenses.js" ></script>
-    <script src="~/js/Views/Areas/Admin/Expense/AddCompanyExpense.js "></script>
+    <script src="~/js/Views/Areas/Admin/Expense/ViewCompanyExpenses.js" asp-append-version="true"></script>
+    <script src="~/js/Views/Areas/Admin/Expense/AddCompanyExpense.js " asp-append-version="true"></script>
 }

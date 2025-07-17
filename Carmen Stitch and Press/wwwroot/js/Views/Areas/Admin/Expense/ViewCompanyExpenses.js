@@ -36,6 +36,7 @@ App.createModule("App.CSP.Area.Admin.Expense.ViewCompanyExpense", function () {
             },
             responsive: true,
             columns: [
+             //   { data: 'distinctYears', visible:false},
                 { data: "spendDateString" },
                 { data: "description" },
                 { data: "amount", render: $.fn.dataTable.render.number(',', '.', 2, '₱ '),/* width: "15%" */ },
@@ -82,10 +83,17 @@ App.createModule("App.CSP.Area.Admin.Expense.ViewCompanyExpense", function () {
                 $(api.column(2).footer()).html(
                     `₱ ${formattedTotal}`
                 );
+            },
+            initComplete: function () {
+                let currentYear = $("#viewCompanyYearSelect").val();//new Date().getFullYear();
+                this.api().column(0).search(currentYear).draw();
             }
-
         });// end datatable
 
+        $("#viewCompanyYearSelect").off("change").on("change", function () {
+            let selectedYr = $(this).val();
+            companyExpenseTbl.column(0).search(selectedYr).draw();
+        });
 
         //add company expense btn
         $(".addCompanyExpense").off("click").on("click", function () {

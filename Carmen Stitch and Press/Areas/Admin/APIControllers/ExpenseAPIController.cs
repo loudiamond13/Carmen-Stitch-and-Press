@@ -20,9 +20,10 @@ namespace Carmen_Stitch_and_Press.Areas.Admin.APIControllers
             _orderLogic = orderLogic;
             _expenseLogic = expense;
         }
+        #region index
         [Route("Index")]
         [HttpGet]
-        public async Task< IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
@@ -43,7 +44,7 @@ namespace Carmen_Stitch_and_Press.Areas.Admin.APIControllers
                         //TotalDiscount = order.TotalDiscount,
                         TotalExpenses = order.TotalExpenses,
                         OrderDate = order.OrderDate,
-                        
+
                     });
                 }
 
@@ -54,6 +55,7 @@ namespace Carmen_Stitch_and_Press.Areas.Admin.APIControllers
                 return Ok(new { message = ex.Message, success = false });
             }
         }
+        #endregion
 
         #region add expense to an order
         [HttpPost]
@@ -153,6 +155,7 @@ namespace Carmen_Stitch_and_Press.Areas.Admin.APIControllers
             {
                 List<ExpenseViewModel> expenseViewModel = new();
                 var expenses = await _expenseLogic.GetAllCompanyExpenses();
+                
 
                 expenseViewModel = expenses.Select(x => new ExpenseViewModel
                 {
